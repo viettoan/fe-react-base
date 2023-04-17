@@ -1,5 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "reboot";
+@import "breadcrumb";
+@import "float";
 @import "brand";
 @import "layout";
 @import "main-sidebar";
@@ -8,7 +10,3 @@
 @import "sidebar";
 @import "sidebar-mini";
 @import "miscellaneous";
-
-.float-right {
-  float: right!important;
-}

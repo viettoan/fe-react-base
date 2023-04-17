@@ -1,13 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faTachometerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+
 export default function MainSidebar() {
+    useEffect(() => {
+        document.querySelectorAll('.main-sidebar .nav-sidebar > .nav-item').forEach( (item) => {
+            item.querySelector('.nav-link').addEventListener('click', function (e) {
+                e.preventDefault();
+
+                if (item.classList.contains('menu-is-opening') && item.classList.contains('menu-open')) {
+                    item.classList.remove('menu-is-opening');
+                    item.classList.remove('menu-open');
+                } else {
+                    item.classList.add('menu-is-opening');
+                    item.classList.add('menu-open');
+                }
+            })
+        });
+    }, [])
     return (
         <>
             <div className="main-sidebar sidebar-dark-primary">
                 <a href="http://localhost:3000/" className="brand-link">
                     <img src="/images/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image image-circle elevation-3"/>
-                    <span className="brand-text fw-light">AdminLTE 3</span>
+                    <span className="brand-text fw-light">Base Admin</span>
                 </a>
                 <div className="sidebar">
                     <div className="sidebar-content">
@@ -22,32 +40,40 @@ export default function MainSidebar() {
                         </div>
 
                         {/* Sidebar menu */}
-                        <nav className="mt-2">
+                        <nav className="mt-2 sidebar-menu">
                             <ul className={"nav nav-pills nav-sidebar flex-column"} data-widget="treeview" role="menu" data-accordion="false">
-                                <li className={"nav-item menu-open"}>
+                                <li className={"nav-item menu-open menu-is-opening"}>
                                     <a href={"http://localhost:3000/"} className={"nav-link active"}>
-                                        <FontAwesomeIcon icon={faTachometerAlt} className={"nav-icon"} />
+                                        <FontAwesomeIcon icon={faUsers} className={"nav-icon"} />
                                         <p>
-                                            Dashboard
+                                            Quản lý Users
                                             <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
                                         </p>
                                     </a>
                                     <ul className={"nav nav-treeview"}>
                                         <li className={"nav-item"}>
-                                            <a href={"http://localhost:3000/"} className={"nav-link active"}>
+                                            <NavLink
+                                                to={'users'}
+                                                className={"nav-link"}
+                                                end
+                                            >
                                                 <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
                                                 <p>
-                                                    Dashboard v1
+                                                    Danh sách Users
                                                 </p>
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         <li className={"nav-item"}>
-                                            <a href={"http://localhost:3000/"} className={"nav-link"}>
+                                            <NavLink
+                                                to={'users/create'}
+                                                className={"nav-link"}
+                                                end
+                                            >
                                                 <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
                                                 <p>
-                                                    Dashboard v2
+                                                    Thêm mới User
                                                 </p>
-                                            </a>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </li>

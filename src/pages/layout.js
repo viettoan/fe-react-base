@@ -1,6 +1,7 @@
 import Navigation from "../components/_common/navigation/navigation";
 import MainSidebar from "../components/_common/mainSidebar/mainSidebar";
 import MainFooter from "../components/_common/footer/footer";
+import { Outlet } from "react-router-dom";
 
 export default function Layout() {
     return (
@@ -9,8 +10,8 @@ export default function Layout() {
                 <div className="wrapper container-fluid p-0">
                     <Navigation />
                     <MainSidebar />
-                    {/* Content Wrapper */}
                     <div className="content-wrapper">
+                        <Outlet />
                     </div>
                     <MainFooter />
                 </div>

@@ -28,3 +28,20 @@
     padding: 1rem;
   }
 }
+
+.content-header {
+  padding: 15px 0.5rem;
+  font-size: 1rem;
+
+  .breadcrumb{
+    background-color: transparent;
+    line-height: 1.8rem;
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+}
