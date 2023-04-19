@@ -3,6 +3,8 @@ import Layout from "../pages/layout";
 import ErrorPage from "../pages/error-page";
 import UserIndex from "../pages/users";
 import UserCreate from "../pages/users/create";
+import UserEdit from "../pages/users/edit";
+import Login from "../pages/login";
 import Index from "../pages";
 import React from "react";
 
@@ -27,10 +29,17 @@ const router = createBrowserRouter([
                         path: "create",
                         element: <UserCreate />,
                     },
+                    {
+                        path: ":userId/edit",
+                        element: <UserEdit />,
+                    },
                 ]
             },
-
         ]
     },
+    {
+        path: "/login",
+        element: <Login />,
+    }
 ]);
 export default router;

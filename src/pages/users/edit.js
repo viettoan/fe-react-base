@@ -2,7 +2,7 @@ import ContentHeader from "../../components/_common/content/contentHeader";
 import UserFormElement from "./elements/form";
 import { useState } from "react";
 
-export default function UserCreate() {
+export default function UserEdit() {
     const [breadcrumb] = useState([
         {
             title: 'Home',
@@ -14,7 +14,7 @@ export default function UserCreate() {
         },
     ])
     const [parentTitle] = useState('Quản lý users')
-    const [title] = useState('Thêm mới user')
+    const [title] = useState('Chỉnh sửa user')
 
     return (
         <>
@@ -24,10 +24,10 @@ export default function UserCreate() {
                     <div className={'row'}>
                         <div className={'col-12'}>
                             <div className="card mb-3">
-                                <div className="card-header text-white bg-primary">
+                                <div className="card-header text-white bg-success">
                                     <h3 className="card-title">{ title }</h3>
                                 </div>
-                                <UserFormElement />
+                                <UserFormElement isUpdate={true} />
                             </div>
                         </div>
                     </div>
