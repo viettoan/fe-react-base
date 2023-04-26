@@ -1,6 +1,8 @@
 import ContentHeader from "../../components/_common/content/contentHeader";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import userApis from "../../api/baseAdmin/user";
+import {USER_LEVELS} from "../../helpers/constants";
 export default function UserIndex() {
     const [breadcrumb] = useState([
         {
@@ -11,9 +13,30 @@ export default function UserIndex() {
             title: 'Quản lý users',
             link: 'users'
         },
-    ])
-    const [parentTitle] = useState('Quản lý users')
-    const [title] = useState('Danh sách users')
+    ]);
+    const [parentTitle] = useState('Quản lý users');
+    const [title] = useState('Danh sách users');
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        getUsers();
+    }, [])
+
+    const getUsers = async () => {
+        const usersResponse = await userApis.index();
+        if (usersResponse.success) {
+            setUsers(usersResponse.data);
+        }
+    }
+
+    const handleDelete = async (userId) => {
+        const deleteUser = await userApis.destroy(userId);
+
+        if (deleteUser.success) {
+            alert("Success")
+            getUsers()
+        }
+    }
 
     return (
         <>
@@ -38,20 +61,32 @@ export default function UserIndex() {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Admin</td>
-                                                <td>
-                                                    0981934614
-                                                </td>
-                                                <td>
-                                                    Admin
-                                                </td>
-                                                <td className={'text-center'}>
-                                                    <button type="button" className="btn btn-danger me-2">Xóa</button>
-                                                    <Link to={'1/edit'} className="btn btn-success">Chỉnh sửa</Link>
-                                                </td>
-                                            </tr>
+                                        {
+                                            users.map( (user, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            { index + 1 }
+                                                        </td>
+                                                        <td>
+                                                            { user.name }
+                                                        </td>
+                                                        <td>
+                                                            { user.phone }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                Object.values(USER_LEVELS.levels).find( level => level.value === user.level).label
+                                                            }
+                                                        </td>
+                                                        <td className={'text-center'}>
+                                                            <button type="button" className="btn btn-danger me-2" onClick={() => handleDelete(user._id)}>Xóa</button>
+                                                            <Link to={ user._id + '/edit' } className="btn btn-success">Chỉnh sửa</Link>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
                                         </tbody>
                                     </table>
                                 </div>
