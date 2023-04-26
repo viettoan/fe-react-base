@@ -24,12 +24,12 @@ baseAdminAxios.interceptors.response.use(
     (error) => {
         if (error.response) {
             const response = error.response
-
+            console.log(error)
             return {
                 success: false,
                 status: response.status,
-                message: response.message,
-                errors: response.errors,
+                message: response.data.message,
+                errors: response.data.errors,
             };
         }
 

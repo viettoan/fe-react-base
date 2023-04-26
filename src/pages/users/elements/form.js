@@ -2,14 +2,23 @@ import {useEffect, useState} from "react";
 import {USER_LEVELS} from "../../../helpers/constants";
 import userApis from "../../../api/baseAdmin/user";
 import {useParams} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 export default function UserFormElement({isUpdate = false})
 {
-    const [user, setUser] = useState({
-        name: '',
-        phone: '',
-        level: USER_LEVELS.levels.admin.value
-    })
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+        setValue
+    } = useForm({
+        defaultValues: {
+            name: '',
+            phone: '',
+            level: USER_LEVELS.levels.user.value.toString()
+        }
+    });
     let urlParams = useParams()
 
     useEffect(() => {
@@ -19,35 +28,50 @@ export default function UserFormElement({isUpdate = false})
                     const userResponse = await userApis.show(urlParams.userId);
 
                     if (userResponse.success) {
-                        setUser(userResponse.data[0]);
+                        setValue('name', userResponse.data[0].name)
+                        setValue('phone', userResponse.data[0].phone)
+                        setValue('level', userResponse.data[0].level.toString())
                     }
                 }
             )()
         }
     }, [isUpdate, urlParams])
 
-    const store = async (e) => {
-        e.preventDefault();
-        const userResponse = await userApis.store(user);
+    const store = async (data) => {
+        const userResponse = await userApis.store(data);
 
         if (userResponse.success) {
             alert('Store user success');
+            return;
         }
+        userResponse.errors.forEach((error) => {
+            const [key, value] = Object.entries(error)[0]
+            setError(key, {
+                type: 'server',
+                message: value.message
+            })
+        })
     }
 
-    const update = async (e) => {
-        e.preventDefault();
-
-        const userResponse = await userApis.update(urlParams.userId, user);
+    const update = async (data) => {
+        const userResponse = await userApis.update(urlParams.userId, data);
 
         if (userResponse.success) {
             alert('Update user success');
+            return;
         }
+        userResponse.errors.forEach((error) => {
+            const [key, value] = Object.entries(error)[0]
+            setError(key, {
+                type: 'server',
+                message: value.message
+            })
+        })
     }
 
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit(isUpdate ? update : store)}>
                 <div className={'p-3 col-6'}>
                     <div className="mb-3">
                         <label htmlFor="inputName" className="form-label">Họ tên</label>
@@ -55,9 +79,15 @@ export default function UserFormElement({isUpdate = false})
                             type="text"
                             className="form-control"
                             id="inputName"
-                            value={user.name}
-                            onChange={e => setUser({...user, name: e.target.value})}
+                            {...register('name', {
+                                required:'Họ tên không được để trống',
+                                maxLength: {
+                                    value: 50,
+                                    message: "Họ tên không được lớn hơn 50 ký tự"
+                                }
+                            })}
                         />
+                        {errors.name && <p className={'text-danger fw-bold'}>{errors.name.message}</p>}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="inputPhone" className="form-label">Số điện thoại</label>
@@ -65,9 +95,19 @@ export default function UserFormElement({isUpdate = false})
                             type="text"
                             className="form-control"
                             id="inputPhone"
-                            value={user.phone}
-                            onChange={e => setUser({...user, phone: e.target.value})}
+                            {...register('phone', {
+                                required:'Số điện thoại không được để trống',
+                                maxLength: {
+                                    value: 11,
+                                    message: "Số điện thoại không được lớn hơn 11 ký tự"
+                                },
+                                minLength: {
+                                    value: 10,
+                                    message: "Số điện thoại không được ít hơn 50 ký tự"
+                                }
+                            })}
                         />
+                        {errors.phone && <p className={'text-danger fw-bold'}>{errors.phone.message}</p>}
                     </div>
                     <div className={'mb-3'}>
                         <div>
@@ -78,8 +118,8 @@ export default function UserFormElement({isUpdate = false})
                                 className="form-check-input"
                                 type="radio"
                                 id="inputLevelAdmin"
-                                checked={ user.level === USER_LEVELS.levels.admin.value }
-                                onChange={e => setUser({...user, level: USER_LEVELS.levels.admin.value})}
+                                value={USER_LEVELS.levels.admin.value.toString()}
+                                {...register('level')}
                             />
                             <label className="form-check-label" htmlFor="inputLevelAdmin">
                                 { USER_LEVELS.levels.admin.label }
@@ -90,13 +130,15 @@ export default function UserFormElement({isUpdate = false})
                                 className="form-check-input"
                                 type="radio"
                                 id="inputLevelUser"
-                                checked={ user.level === USER_LEVELS.levels.user.value }
-                                onChange={e => setUser({...user, level: USER_LEVELS.levels.user.value})}
+                                value={USER_LEVELS.levels.user.value.toString()}
+                                {...register('level')}
                             />
                             <label className="form-check-label" htmlFor="inputLevelUser">
                                 { USER_LEVELS.levels.user.label }
                             </label>
                         </div>
+                        {errors.level && <p className={'text-danger fw-bold'}>{errors.level.message}</p>}
+
                     </div>
 
                 </div>
@@ -107,7 +149,6 @@ export default function UserFormElement({isUpdate = false})
                                 return (
                                     <button
                                         className={'btn btn-success'}
-                                        onClick={e => update(e)}
                                     >Cập nhật</button>
                                 );
                             }
@@ -115,7 +156,6 @@ export default function UserFormElement({isUpdate = false})
                             return (
                                 <button
                                     className={'btn btn-primary'}
-                                    onClick={(e) => store(e)}
                                 >
                                     Thêm mới
                                 </button>
