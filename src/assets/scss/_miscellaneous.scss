@@ -1,0 +1,18 @@
+.nav-sidebar {
+  .menu-is-opening {
+    >.nav-link {
+      .right {
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+      }
+    }
+  }
+  .menu-open {
+    >.nav-link {
+      .right {
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}
