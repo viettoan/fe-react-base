@@ -1,9 +1,10 @@
 import axios from "axios";
+import {Cookies} from "react-cookie";
 const STATUS_SUCCESS = [200,201];
 const STATUS_INTERNAL_SERVER_ERROR = 500;
 
 const baseAdminAxios = axios.create({
-    baseURL: process.env.REACT_APP_DOMAIN_API
+    baseURL: process.env.REACT_APP_DOMAIN_API,
 });
 baseAdminAxios.interceptors.response.use(
     (response) => {
@@ -24,7 +25,6 @@ baseAdminAxios.interceptors.response.use(
     (error) => {
         if (error.response) {
             const response = error.response
-            console.log(error)
             return {
                 success: false,
                 status: response.status,
