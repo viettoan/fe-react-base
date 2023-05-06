@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {USER_LEVELS} from "../../../helpers/constants";
 import userApis from "../../../api/baseAdmin/user";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {toast} from "react-toastify";
 
 export default function UserFormElement({isUpdate = false})
 {
@@ -19,7 +20,8 @@ export default function UserFormElement({isUpdate = false})
             level: USER_LEVELS.levels.user.value.toString()
         }
     });
-    let urlParams = useParams()
+    let urlParams = useParams();
+    let navigate = useNavigate();
 
     useEffect(() => {
         if (isUpdate) {
@@ -28,9 +30,10 @@ export default function UserFormElement({isUpdate = false})
                     const userResponse = await userApis.show(urlParams.userId);
 
                     if (userResponse.success) {
-                        setValue('name', userResponse.data[0].name)
-                        setValue('phone', userResponse.data[0].phone)
-                        setValue('level', userResponse.data[0].level.toString())
+                        setValue('name', userResponse.data.name)
+                        setValue('email', userResponse.data.email)
+                        setValue('phone', userResponse.data.phone)
+                        setValue('level', userResponse.data.level.toString())
                     }
                 }
             )()
@@ -41,7 +44,15 @@ export default function UserFormElement({isUpdate = false})
         const userResponse = await userApis.store(data);
 
         if (userResponse.success) {
-            alert('Store user success');
+            navigate("/users");
+            toast.success(() => <p>Thêm mới user <b>{userResponse.data.name}</b> thành công!</p>);
+
+            return;
+        }
+
+        if (!userResponse.errors.length) {
+            toast.error(() => <p>Thêm mới user <b>{data.name}</b> thất bại!</p>);
+
             return;
         }
         userResponse.errors.forEach((error) => {
@@ -57,11 +68,16 @@ export default function UserFormElement({isUpdate = false})
         const userResponse = await userApis.update(urlParams.userId, data);
 
         if (userResponse.success) {
-            alert('Update user success');
+            toast.success(() => <p>Chỉnh sửa user <b>{data.name}</b> thành công!</p>);
+
             return;
         }
+
+        if (!userResponse.errors.length) {
+            toast.error(() => <p>Chỉnh sửa user <b>{data.name}</b> thất bại!</p>);
+        }
         userResponse.errors.forEach((error) => {
-            const [key, value] = Object.entries(error)[0]
+            const [key, value] = Object.entries(error)[0];
             setError(key, {
                 type: 'server',
                 message: value.message
@@ -74,7 +90,7 @@ export default function UserFormElement({isUpdate = false})
             <form onSubmit={handleSubmit(isUpdate ? update : store)}>
                 <div className={'p-3 col-6'}>
                     <div className="mb-3">
-                        <label htmlFor="inputName" className="form-label">Họ tên</label>
+                        <label htmlFor="inputName" className="form-label">Họ tên <span className={'text-danger fw-bold'}>*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -90,7 +106,24 @@ export default function UserFormElement({isUpdate = false})
                         {errors.name && <p className={'text-danger fw-bold'}>{errors.name.message}</p>}
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="inputPhone" className="form-label">Số điện thoại</label>
+                        <label htmlFor="inputName" className="form-label">Email <span className={'text-danger fw-bold'}>*</span></label>
+                        <input
+                            disabled={isUpdate}
+                            type="email"
+                            className="form-control"
+                            id="inputName"
+                            {...register('email', {
+                                required:'Email không được để trống',
+                                maxLength: {
+                                    value: 50,
+                                    message: "Email không được lớn hơn 50 ký tự"
+                                }
+                            })}
+                        />
+                        {errors.email && <p className={'text-danger fw-bold'}>{errors.email.message}</p>}
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="inputPhone" className="form-label">Số điện thoại <span className={'text-danger fw-bold'}>*</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -103,7 +136,7 @@ export default function UserFormElement({isUpdate = false})
                                 },
                                 minLength: {
                                     value: 10,
-                                    message: "Số điện thoại không được ít hơn 50 ký tự"
+                                    message: "Số điện thoại không được ít hơn 10 ký tự"
                                 }
                             })}
                         />
@@ -111,7 +144,7 @@ export default function UserFormElement({isUpdate = false})
                     </div>
                     <div className={'mb-3'}>
                         <div>
-                            <label className="form-label">Phân quyền</label>
+                            <label className="form-label">Phân quyền <span className={'text-danger fw-bold'}>*</span></label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input
@@ -138,9 +171,7 @@ export default function UserFormElement({isUpdate = false})
                             </label>
                         </div>
                         {errors.level && <p className={'text-danger fw-bold'}>{errors.level.message}</p>}
-
                     </div>
-
                 </div>
                 <div className="card-footer">
                     {

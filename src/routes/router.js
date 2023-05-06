@@ -4,9 +4,11 @@ import ErrorPage from "../pages/error-page";
 import UserIndex from "../pages/users";
 import UserCreate from "../pages/users/create";
 import UserEdit from "../pages/users/edit";
-import Login from "../pages/login";
+import Login from "../pages/auth/login";
 import Index from "../pages";
 import React from "react";
+import AuthLayout from "../pages/auth/authLayout";
+import ChangePassword from "../pages/auth/changePassword";
 
 const router = createBrowserRouter([
     {
@@ -38,8 +40,19 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "/login",
-        element: <Login />,
+        path: "/",
+        element: <AuthLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/confirm-account",
+                element: <ChangePassword />,
+            }
+        ]
     }
 ]);
 export default router;

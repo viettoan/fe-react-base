@@ -3,6 +3,11 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import userApis from "../../api/baseAdmin/user";
 import {USER_LEVELS} from "../../helpers/constants";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import {toast} from "react-toastify";
+
+const userIndexSwal = withReactContent(Swal);
 export default function UserIndex() {
     const [breadcrumb] = useState([
         {
@@ -19,6 +24,7 @@ export default function UserIndex() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
+        console.log()
         getUsers();
     }, [])
 
@@ -30,12 +36,21 @@ export default function UserIndex() {
     }
 
     const handleDelete = async (userId) => {
-        const deleteUser = await userApis.destroy(userId);
+        userIndexSwal.fire({
+            title: 'Bạn có muốn xóa user này không?',
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const deleteUser = await userApis.destroy(userId);
 
-        if (deleteUser.success) {
-            alert("Success")
-            getUsers()
-        }
+                if (deleteUser.success) {
+                    toast.success(() => <p>Xóa user thành công!</p>);
+                    getUsers()
+                }
+            }
+        })
     }
 
     return (
@@ -55,6 +70,7 @@ export default function UserIndex() {
                                         <tr className={'text-center'}>
                                             <th style={{width:10}}>#</th>
                                             <th>Họ tên</th>
+                                            <th>Email</th>
                                             <th>Số điện thoại</th>
                                             <th>Phân quyền</th>
                                             <th style={{width:`15%`}}>Label</th>
@@ -70,6 +86,9 @@ export default function UserIndex() {
                                                         </td>
                                                         <td>
                                                             { user.name }
+                                                        </td>
+                                                        <td>
+                                                            { user.email }
                                                         </td>
                                                         <td>
                                                             { user.phone }
