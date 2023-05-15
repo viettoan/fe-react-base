@@ -30,6 +30,11 @@ const userApis = {
             headers: getHeaderWithAuthorizationBearerToken()
         });
     },
+    export: (data) => {
+        return baseAdminAxios.post(baseRoute + 'export', data,{
+            headers: getHeaderWithAuthorizationBearerToken()
+        })
+    },
 };
 
 export default userApis;
