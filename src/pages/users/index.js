@@ -6,9 +6,25 @@ import {USER_LEVELS} from "../../helpers/constants";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {toast} from "react-toastify";
+import {useForm} from "react-hook-form";
 
 const userIndexSwal = withReactContent(Swal);
 export default function UserIndex() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+        setValue,
+        getValues
+    }= useForm({
+        defaultValues: {
+            name: '',
+            email: '',
+            phone: '',
+            level: ''
+        }
+    });
     const [breadcrumb] = useState([
         {
             title: 'Home',
@@ -24,16 +40,16 @@ export default function UserIndex() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        console.log()
         getUsers();
-    }, [])
+    }, []);
 
     const getUsers = async () => {
         const usersResponse = await userApis.index();
+
         if (usersResponse.success) {
             setUsers(usersResponse.data);
         }
-    }
+    };
 
     const handleDelete = async (userId) => {
         userIndexSwal.fire({
@@ -51,7 +67,21 @@ export default function UserIndex() {
                 }
             }
         })
-    }
+    };
+
+    const filter = async (data) => {
+        for (const field in data) {
+            if (!data[field]) {
+                delete data[field];
+            }
+        }
+
+        const usersResponse = await userApis.index(data);
+
+        if (usersResponse.success) {
+            setUsers(usersResponse.data);
+        }
+    };
 
     return (
         <>
@@ -60,6 +90,83 @@ export default function UserIndex() {
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-12'}>
+                            <div className="card mb-3">
+                                <div className="card-header">
+                                    <h3 className="card-title">Tìm kiếm</h3>
+                                </div>
+                                <div className={'card-body'}>
+                                    <form onSubmit={handleSubmit(filter)}>
+                                        <div className={"row mb-3"}>
+                                            <div className="col-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder={"Họ tên"}
+                                                    {...register('name', {
+                                                        maxLength: {
+                                                            value: 50,
+                                                            message: "Họ tên không được lớn hơn 50 ký tự"
+                                                        }
+                                                    })}
+                                                />
+                                            </div>
+                                            <div className="col-3">
+                                                <input
+                                                    type="email"
+                                                    className="form-control"
+                                                    placeholder={"Email"}
+                                                    {...register('email', {
+                                                        maxLength: {
+                                                            value: 50,
+                                                            message: "Email không được lớn hơn 50 ký tự"
+                                                        }
+                                                    })}
+                                                />
+                                            </div>
+                                            <div className="col-3">
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder={"Số điện thoại"}
+                                                    {...register('phone', {
+                                                        maxLength: {
+                                                            value: 11,
+                                                            message: "Số điện thoại không được lớn hơn 11 ký tự"
+                                                        },
+                                                        minLength: {
+                                                            value: 10,
+                                                            message: "Số điện thoại không được ít hơn 10 ký tự"
+                                                        }
+                                                    })}
+                                                />
+                                            </div>
+                                            <div className="col-3">
+                                                <select className="form-select" aria-label="Phân quyền"
+                                                        {...register('level')}
+                                                >
+                                                    <option value={''}>Phân quyền</option>
+                                                    <option
+                                                        value={USER_LEVELS.levels.super_admin.value.toString()}
+                                                    >
+                                                        {USER_LEVELS.levels.super_admin.label}
+                                                    </option>
+                                                    <option value={USER_LEVELS.levels.admin.value.toString()}>{USER_LEVELS.levels.admin.label}</option>
+                                                    <option value={USER_LEVELS.levels.user.value.toString()}>{USER_LEVELS.levels.user.label}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className={"row"}>
+                                            <div className="col-auto">
+                                                <button type="submit" className="btn btn-primary mb-3">
+                                                    Tìm kiếm
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                             <div className="card mb-3">
                                 <div className="card-header">
                                     <h3 className="card-title">{ title }</h3>
