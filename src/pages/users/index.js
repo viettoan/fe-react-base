@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
+import UserImport from "./elements/userImport";
+import UserExport from "./elements/userExport";
 
 const userIndexSwal = withReactContent(Swal);
 export default function UserIndex() {
@@ -83,6 +85,8 @@ export default function UserIndex() {
         }
     };
 
+
+
     return (
         <>
             <ContentHeader breadcrumb={breadcrumb} title={parentTitle}/>
@@ -158,9 +162,11 @@ export default function UserIndex() {
 
                                         <div className={"row"}>
                                             <div className="col-auto">
-                                                <button type="submit" className="btn btn-primary mb-3">
+                                                <button type="submit" className="btn btn-primary me-2">
                                                     Tìm kiếm
                                                 </button>
+                                                <UserImport></UserImport>
+                                                <UserExport></UserExport>
                                             </div>
                                         </div>
                                     </form>
