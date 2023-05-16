@@ -6,16 +6,32 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useEffect} from "react";
 import {useCookies} from "react-cookie";
+import {useDispatch, useSelector} from "react-redux";
+import {createAuthUser} from "../actions/auth";
+import profileApis from "../api/baseAdmin/profile";
 
 export default function Layout() {
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
     const [cookies, setCookie] = useCookies(['user_token']);
     let navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect( () => {
         if (!cookies.user_token) {
             navigate('/login');
         }
-    }, []);
+        if (!auth.user) {
+            (
+                async () => {
+                    const profileResponse = await profileApis.show();
+
+                    if (profileResponse.success) {
+                        dispatch(createAuthUser(profileResponse.data))
+                    }
+                }
+            )()
+        }
+    }, [cookies]);
 
     return (
         <>

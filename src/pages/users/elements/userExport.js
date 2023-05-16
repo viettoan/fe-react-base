@@ -6,7 +6,7 @@ export default function UserExport(data = {})
 {
     const handleExport = async () => {
         for (const field in data) {
-            if (!data[field]) {ại
+            if (!data[field]) {
                 delete data[field];
             }
         }

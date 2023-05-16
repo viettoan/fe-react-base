@@ -3,8 +3,10 @@ import { faAngleLeft, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function MainSidebar() {
+    const auth = useSelector(state => state.auth);
     useEffect(() => {
         document.querySelectorAll('.main-sidebar .nav-sidebar > .nav-item').forEach( (item) => {
             item.querySelector('.nav-link').addEventListener('click', function (e) {
@@ -32,10 +34,16 @@ export default function MainSidebar() {
                         {/* Sidebar User Panel */}
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                             <div className="image">
-                                <img src="/images/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
+                                <img src={auth.user?.avatarUrl} className="img-circle elevation-2" alt="User" />
                             </div>
                             <div className="info">
-                                <a href="http://localhost:3000/" className="d-block">Alexander Pierce</a>
+                                <NavLink
+                                    to={'profile'}
+                                    className={"nav-link"}
+                                    end
+                                >
+                                    {auth.user?.name}
+                                </NavLink>
                             </div>
                         </div>
 

@@ -8,7 +8,6 @@ const authApis = {
         return baseAdminAxios.post(baseRoute + 'confirm-account/change-password', data)
     },
     confirmAccount: (data) => {
-        console.log(data)
         return baseAdminAxios.post(baseRoute + 'confirm-account', data)
     },
 };
