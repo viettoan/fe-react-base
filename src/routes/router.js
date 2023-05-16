@@ -9,6 +9,7 @@ import Index from "../pages";
 import React from "react";
 import AuthLayout from "../pages/auth/authLayout";
 import ChangePassword from "../pages/auth/changePassword";
+import ProfileIndex from "../pages/profile";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,15 @@ const router = createBrowserRouter([
                     },
                 ]
             },
+            {
+                path: "profile",
+                children: [
+                    {
+                        index: true,
+                        element: <ProfileIndex />
+                    }
+                ]
+            }
         ]
     },
     {

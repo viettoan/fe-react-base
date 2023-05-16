@@ -5,7 +5,6 @@ const internalState = {
 export default function navigationReducers (state = internalState, action) {
     switch (action.type) {
         case COLLAPSE_MAIN_SIDEBAR:
-            console.log(action.payload.isCollapse)
             return Object.assign({}, state, {
                 isCollapseMainSideBar: action.payload.isCollapse,
             });
