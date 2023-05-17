@@ -1,8 +1,10 @@
 import userApis from "../../../api/baseAdmin/user";
 import moment from "moment";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+import { memo } from "react";
+import {generateFileToUrl} from "../../../helpers/common";
 
-export default function UserExport(data = {})
+function UserExport(data = {})
 {
     const handleExport = async () => {
         for (const field in data) {
@@ -14,17 +16,15 @@ export default function UserExport(data = {})
         const exportUserResponse = await userApis.export(data);
 
         if (exportUserResponse.success) {
-            const file = exportUserResponse.data.data;
-            const blob = new Blob([new Uint8Array(file)], {type:"application/octet-stream"});
-            const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.download = moment().format('YYYYMMDD_HHmmss_') + "users.xlsx";
-            a.href = url;
+            a.href = generateFileToUrl(exportUserResponse.data.data);
             document.body.appendChild(a);
             a.click();
+            return;
         }
 
-        toast.error(() => <p>Export users thất b</p>);
+        toast.error(() => <p>Export users thất bại</p>);
     };
 
     return (
@@ -35,3 +35,5 @@ export default function UserExport(data = {})
         </>
     )
 }
+
+export default memo(UserExport);

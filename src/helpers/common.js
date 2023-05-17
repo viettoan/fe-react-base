@@ -8,3 +8,9 @@ export const getHeaderWithAuthorizationBearerToken = () => {
         Authorization: `Bearer ${userToken}`,
     }
 }
+
+export const generateFileToUrl = (file, type = "application/octet-stream") => {
+    const blob = new Blob([new Uint8Array(file)], {type});
+
+    return URL.createObjectURL(blob);
+}

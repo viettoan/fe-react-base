@@ -85,8 +85,6 @@ export default function UserIndex() {
         }
     };
 
-
-
     return (
         <>
             <ContentHeader breadcrumb={breadcrumb} title={parentTitle}/>
