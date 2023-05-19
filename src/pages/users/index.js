@@ -1,8 +1,8 @@
 import ContentHeader from "../../components/_common/content/contentHeader";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import userApis from "../../api/baseAdmin/user";
-import {USER_LEVELS} from "../../helpers/constants";
+import {USER} from "../../helpers/constants";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {toast} from "react-toastify";
@@ -45,13 +45,17 @@ export default function UserIndex() {
         getUsers();
     }, []);
 
-    const getUsers = async () => {
-        const usersResponse = await userApis.index();
+    const getUsers = useCallback(() => {
+        (
+            async () => {
+                const usersResponse = await userApis.index();
 
-        if (usersResponse.success) {
-            setUsers(usersResponse.data);
-        }
-    };
+                if (usersResponse.success) {
+                    setUsers(usersResponse.data);
+                }
+            }
+        )()
+    }, []);
 
     const handleDelete = async (userId) => {
         userIndexSwal.fire({
@@ -148,12 +152,12 @@ export default function UserIndex() {
                                                 >
                                                     <option value={''}>Phân quyền</option>
                                                     <option
-                                                        value={USER_LEVELS.levels.super_admin.value.toString()}
+                                                        value={USER.levels.super_admin.value.toString()}
                                                     >
-                                                        {USER_LEVELS.levels.super_admin.label}
+                                                        {USER.levels.super_admin.label}
                                                     </option>
-                                                    <option value={USER_LEVELS.levels.admin.value.toString()}>{USER_LEVELS.levels.admin.label}</option>
-                                                    <option value={USER_LEVELS.levels.user.value.toString()}>{USER_LEVELS.levels.user.label}</option>
+                                                    <option value={USER.levels.admin.value.toString()}>{USER.levels.admin.label}</option>
+                                                    <option value={USER.levels.user.value.toString()}>{USER.levels.user.label}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -163,8 +167,8 @@ export default function UserIndex() {
                                                 <button type="submit" className="btn btn-primary me-2">
                                                     Tìm kiếm
                                                 </button>
-                                                <UserImport></UserImport>
-                                                <UserExport></UserExport>
+                                                <UserImport getUsers={getUsers}></UserImport>
+                                                <UserExport data={getValues()}></UserExport>
                                             </div>
                                         </div>
                                     </form>
@@ -206,7 +210,7 @@ export default function UserIndex() {
                                                         </td>
                                                         <td>
                                                             {
-                                                                Object.values(USER_LEVELS.levels).find( level => level.value === user.level).label
+                                                                Object.values(USER.levels).find( level => level.value === user.level).label
                                                             }
                                                         </td>
                                                         <td className={'text-center'}>

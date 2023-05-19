@@ -33,8 +33,23 @@ const userApis = {
     export: (data) => {
         return baseAdminAxios.post(baseRoute + 'export', data,{
             headers: getHeaderWithAuthorizationBearerToken()
-        })
+        });
     },
+    getUserImportHistory: () => {
+        return baseAdminAxios.get(baseRoute + 'import/history', {
+            headers: getHeaderWithAuthorizationBearerToken()
+        });
+    },
+    showUserImportNewest: () => {
+        return baseAdminAxios.get(baseRoute + 'import/newest', {
+            headers: getHeaderWithAuthorizationBearerToken()
+        });
+    },
+    import: (data) => {
+        return baseAdminAxios.post(baseRoute + 'import', data, {
+            headers: getHeaderWithAuthorizationBearerToken()
+        });
+    }
 };
 
 export default userApis;

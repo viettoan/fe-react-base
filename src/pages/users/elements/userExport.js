@@ -4,15 +4,15 @@ import { toast } from "react-toastify";
 import { memo } from "react";
 import {generateFileToUrl} from "../../../helpers/common";
 
-function UserExport(data = {})
+function UserExport({data = {}})
 {
     const handleExport = async () => {
         for (const field in data) {
             if (!data[field]) {
+                console.log(111222);
                 delete data[field];
             }
         }
-
         const exportUserResponse = await userApis.export(data);
 
         if (exportUserResponse.success) {
@@ -23,7 +23,6 @@ function UserExport(data = {})
             a.click();
             return;
         }
-
         toast.error(() => <p>Export users thất bại</p>);
     };
 

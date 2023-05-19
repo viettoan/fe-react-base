@@ -11,7 +11,6 @@ import {CookiesProvider} from "react-cookie";
 import rootReducer from './reducers'
 const store = createStore(rootReducer)
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
     <CookiesProvider>
         <Provider store={store}>
