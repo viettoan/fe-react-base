@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-
-export default function ContentHeader({ title = '', breadcrumb = [] }) {
+import {memo} from "react";
+function ContentHeader({ title = '', breadcrumb = [] }) {
     return (
         <>
             <section className="content-header">
@@ -34,3 +34,5 @@ export default function ContentHeader({ title = '', breadcrumb = [] }) {
         </>
     );
 }
+
+export default memo(ContentHeader);

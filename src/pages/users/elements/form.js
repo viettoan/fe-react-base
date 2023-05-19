@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {USER_LEVELS} from "../../../helpers/constants";
+import {USER} from "../../../helpers/constants";
 import userApis from "../../../api/baseAdmin/user";
 import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -17,7 +17,7 @@ export default function UserFormElement({isUpdate = false})
         defaultValues: {
             name: '',
             phone: '',
-            level: USER_LEVELS.levels.user.value.toString()
+            level: USER.levels.user.value.toString()
         }
     });
     let urlParams = useParams();
@@ -151,11 +151,11 @@ export default function UserFormElement({isUpdate = false})
                                 className="form-check-input"
                                 type="radio"
                                 id="inputLevelAdmin"
-                                value={USER_LEVELS.levels.admin.value.toString()}
+                                value={USER.levels.admin.value.toString()}
                                 {...register('level')}
                             />
                             <label className="form-check-label" htmlFor="inputLevelAdmin">
-                                { USER_LEVELS.levels.admin.label }
+                                { USER.levels.admin.label }
                             </label>
                         </div>
                         <div className="form-check form-check-inline">
@@ -163,11 +163,11 @@ export default function UserFormElement({isUpdate = false})
                                 className="form-check-input"
                                 type="radio"
                                 id="inputLevelUser"
-                                value={USER_LEVELS.levels.user.value.toString()}
+                                value={USER.levels.user.value.toString()}
                                 {...register('level')}
                             />
                             <label className="form-check-label" htmlFor="inputLevelUser">
-                                { USER_LEVELS.levels.user.label }
+                                { USER.levels.user.label }
                             </label>
                         </div>
                         {errors.level && <p className={'text-danger fw-bold'}>{errors.level.message}</p>}

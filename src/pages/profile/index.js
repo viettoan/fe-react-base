@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import ContentHeader from "../../components/_common/content/contentHeader";
-import {USER_LEVELS} from "../../helpers/constants";
+import {USER} from "../../helpers/constants";
 import {useForm} from "react-hook-form";
 import userApis from "../../api/baseAdmin/user";
 import {toast} from "react-toastify";
@@ -138,11 +138,11 @@ export default function ProfileIndex()
                                                     className="form-check-input"
                                                     type="radio"
                                                     id="inputLevelAdmin"
-                                                    checked={ auth.user?.level === USER_LEVELS.levels.admin.value}
+                                                    checked={ auth.user?.level === USER.levels.admin.value}
                                                     disabled={true}
                                                 />
                                                 <label className="form-check-label" htmlFor="inputLevelAdmin">
-                                                    { USER_LEVELS.levels.admin.label }
+                                                    { USER.levels.admin.label }
                                                 </label>
                                             </div>
                                             <div className="form-check form-check-inline">
@@ -150,11 +150,11 @@ export default function ProfileIndex()
                                                     className="form-check-input"
                                                     type="radio"
                                                     id="inputLevelUser"
-                                                    checked={ auth.user?.level === USER_LEVELS.levels.user.value}
+                                                    checked={ auth.user?.level === USER.levels.user.value}
                                                     disabled={true}
                                                 />
                                                 <label className="form-check-label" htmlFor="inputLevelUser">
-                                                    { USER_LEVELS.levels.user.label }
+                                                    { USER.levels.user.label }
                                                 </label>
                                             </div>
                                         </div>
