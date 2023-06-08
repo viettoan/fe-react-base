@@ -47,7 +47,9 @@ export default function ChangePassword() {
                 const confirmAccountRequest = await authApis.confirmAccount({
                     token: searchParams.get('token')
                 });
+
                 if (!confirmAccountRequest.success) {
+                    toast.error(() => <p>{ confirmAccountRequest.message }</p>);
                     navigate('/login');
                 }
             }
