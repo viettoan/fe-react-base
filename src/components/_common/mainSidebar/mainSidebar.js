@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faUsers, faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -80,6 +80,29 @@ export default function MainSidebar() {
                                                 <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
                                                 <p>
                                                     Thêm mới User
+                                                </p>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li className={"nav-item menu-open menu-is-opening"}>
+                                    <a href={"http://localhost:3000/"} className={"nav-link active"}>
+                                        <FontAwesomeIcon icon={faCreditCard} className={"nav-icon"} />
+                                        <p>
+                                            Payments
+                                            <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
+                                        </p>
+                                    </a>
+                                    <ul className={"nav nav-treeview"}>
+                                        <li className={"nav-item"}>
+                                            <NavLink
+                                                to={'payments'}
+                                                className={"nav-link"}
+                                                end
+                                            >
+                                                <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
+                                                <p>
+                                                    Tạo payment
                                                 </p>
                                             </NavLink>
                                         </li>

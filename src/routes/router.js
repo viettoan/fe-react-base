@@ -10,6 +10,8 @@ import React from "react";
 import AuthLayout from "../pages/auth/authLayout";
 import ChangePassword from "../pages/auth/changePassword";
 import ProfileIndex from "../pages/profile";
+import Payment from "../pages/payments/payment";
+import PaymentSuccess from "../pages/payments/paymentSuccess";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +39,19 @@ const router = createBrowserRouter([
                         element: <UserEdit />,
                     },
                 ]
+            },
+            {
+                path: 'payments',
+                children: [
+                    {
+                        index: true,
+                        element: <Payment />,
+                    },
+                    {
+                        path: "success",
+                        element: <PaymentSuccess />,
+                    }
+                ],
             },
             {
                 path: "profile",
