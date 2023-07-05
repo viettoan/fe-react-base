@@ -9,6 +9,7 @@ import {useCookies} from "react-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {createAuthUser} from "../features/auth/authSlice";
 import profileApis from "../api/baseAdmin/profile";
+import socket from "../plugins/socketio";
 
 export default function Layout() {
     const auth = useSelector(state => state.auth);
@@ -17,6 +18,11 @@ export default function Layout() {
     let navigate = useNavigate();
 
     useEffect( () => {
+        const mainSocket = socket('admin');
+        mainSocket.on('create_new_user', (data) => {
+            console.log(data);
+        })
+
         if (!cookies.user_token) {
             navigate('/login');
         }
