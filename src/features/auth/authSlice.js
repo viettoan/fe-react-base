@@ -5,6 +5,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: null,
+        notifications: []
     },
     reducers: {
         createAuthUser: (state, action) => {
@@ -43,8 +44,25 @@ export const authSlice = createSlice({
                 user: {...user, avatarUrl: avatar},
             });
         },
+        initNotifications: (state, action) => {
+            const notifications = action.payload;
+
+            return {
+                state,
+                notifications
+            }
+        },
+        pushNotification: (state, action) => {
+            const notification = action.payload;
+            const notifications = [notification, ...state.notifications];
+
+            return {
+                state,
+                notifications
+            }
+        }
     }
 });
 
-export const { createAuthUser, updateAuthUser } = authSlice.actions;
+export const { createAuthUser, updateAuthUser, initNotifications, pushNotification } = authSlice.actions;
 export default authSlice.reducer;
