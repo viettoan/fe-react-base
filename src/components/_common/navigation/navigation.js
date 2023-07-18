@@ -5,9 +5,12 @@ import { faComments, faBell, faStar } from "@fortawesome/free-regular-svg-icons"
 import { collapseMainSidebar } from "../../../features/navigation/navigationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {useCookies} from "react-cookie";
+import {Link} from "react-router-dom";
+import moment from "moment";
 
 const Navigation = () => {
     const navigation = useSelector(state => state.navigation);
+    const notifications = useSelector(state => state.auth.notifications)
     const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const collapseSidebar = (e) => {
@@ -137,7 +140,7 @@ const Navigation = () => {
                                 onClick={(e) => mainHeaderDropdown(e)}
                             >
                                 <FontAwesomeIcon icon={faBell} />
-                                <span className="badge bg-warning navbar-badge">15</span>
+                                <span className="badge bg-warning navbar-badge">{notifications.length ?? 0}</span>
                             </a>
                             <div
                                 className="dropdown-menu dropdown-menu-lg dropdown-menu-right"
@@ -148,29 +151,25 @@ const Navigation = () => {
                                     }
                                 }
                             >
-                                <span className="dropdown-item dropdown-header">15 Notifications</span>
+                                <span className="dropdown-item dropdown-header">{notifications.length ?? 0} Notifications</span>
                                 <div className="dropdown-divider"></div>
-                                <a href="#" className="dropdown-item">
-                                    <div className="media">
-                                        <img
-                                            src="/images/user1-128x128.jpg"
-                                            alt="User Avatar"
-                                            className="img-size-50 me-3 img-circle"
-                                        />
-                                        <div className="media-body">
-                                            <h3 className="dropdown-item-title">
-                                                Brad Diesel
-                                                <span className="float-right text-sm text-danger">
-                                                        <FontAwesomeIcon icon={faStar} />
-                                                    </span>
-                                            </h3>
-                                            <p className="text-sm">Call me whenever you can...</p>
-                                            <p className="text-sm text-muted">
-                                                <i className="far fa-clock mr-1"></i> 4 Hours Ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
+                                {
+                                    notifications.map(
+                                        (notification, index) => (
+                                            <Link to={ notification.redirect_url } className="dropdown-item" key={index}>
+                                                <div className="media">
+                                                    <div className="media-body">
+                                                        <p className="text-sm fw-bold">{ notification.content }</p>
+                                                        <p className="text-sm text-muted">
+                                                            <i className="far fa-clock mr-1"></i> { moment(notification.created_at).format('YYYY-MM-DD HH:mm') }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        )
+                                    )
+                                }
+
                                 <div className="dropdown-divider"></div>
                                 <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
                             </div>

@@ -13,6 +13,11 @@ const profileApis = {
             headers: getHeaderWithAuthorizationBearerToken()
         });
     },
+    notifications: () => {
+        return baseAdminAxios.get(baseRoute + 'notifications', {
+            headers: getHeaderWithAuthorizationBearerToken()
+        });
+    }
 };
 
 export default profileApis;

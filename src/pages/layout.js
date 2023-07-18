@@ -2,14 +2,15 @@ import Navigation from "../components/_common/navigation/navigation";
 import MainSidebar from "../components/_common/mainSidebar/mainSidebar";
 import MainFooter from "../components/_common/footer/footer";
 import {Outlet, useNavigate} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useEffect} from "react";
 import {useCookies} from "react-cookie";
 import {useDispatch, useSelector} from "react-redux";
-import {createAuthUser} from "../features/auth/authSlice";
+import {createAuthUser, initNotifications, pushNotification} from "../features/auth/authSlice";
 import profileApis from "../api/baseAdmin/profile";
 import socket from "../plugins/socketio";
+import AdminCreateNewUser from "../components/_common/notifications/AdminCreateNewUser";
 
 export default function Layout() {
     const auth = useSelector(state => state.auth);
@@ -19,8 +20,9 @@ export default function Layout() {
 
     useEffect( () => {
         const mainSocket = socket('admin');
-        mainSocket.on('create_new_user', (data) => {
-            console.log(data);
+        mainSocket.on('admin_create_new_user', (data) => {
+            toast.info(() => <AdminCreateNewUser data={data}/>);
+            dispatch(pushNotification(data));
         })
 
         if (!cookies.user_token) {
@@ -37,6 +39,13 @@ export default function Layout() {
                 }
             )()
         }
+        profileApis.notifications()
+            .then(
+              (response) => dispatch(initNotifications(response.data))
+            )
+            .catch(
+              e => toast.error(() => e.message)
+            )
     }, [cookies]);
 
     return (
