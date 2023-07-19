@@ -48,7 +48,7 @@ export const authSlice = createSlice({
             const notifications = action.payload;
 
             return {
-                state,
+                ...state,
                 notifications
             }
         },
@@ -57,7 +57,7 @@ export const authSlice = createSlice({
             const notifications = [notification, ...state.notifications];
 
             return {
-                state,
+                ...state,
                 notifications
             }
         }

@@ -14,6 +14,7 @@ import AdminCreateNewUser from "../components/_common/notifications/adminCreateN
 
 export default function Layout() {
     const auth = useSelector(state => state.auth);
+    console.log(auth);
     const dispatch = useDispatch();
     const [cookies, setCookie] = useCookies(['user_token']);
     let navigate = useNavigate();

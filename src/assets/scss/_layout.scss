@@ -1,6 +1,7 @@
 .layout-fixed {
   .main-header {
     margin-left: 250px;
+    height: 57px;
   }
   .main-sidebar {
     bottom: 0;
@@ -17,7 +18,7 @@
     margin-left: 250px;
     background-color: #f4f6f9;
     height: 100%;
-    min-height: 100vh;
+    min-height: $heightContentWrapper;
   }
   .main-footer {
     transition: margin-left .3s ease-in-out;
@@ -26,7 +27,11 @@
     border-top: 1px solid #dee2e6;
     color: #869099;
     padding: 1rem;
+    height: 57px;
   }
+}
+.wrapper {
+  position: relative;
 }
 
 .content-header {
