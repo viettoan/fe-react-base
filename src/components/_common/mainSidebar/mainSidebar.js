@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faUsers, faCreditCard } from "@fortawesome/free-solid-svg-icons";
-import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircle, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -103,6 +103,29 @@ export default function MainSidebar() {
                                                 <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
                                                 <p>
                                                     Tạo payment
+                                                </p>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li className={"nav-item menu-open menu-is-opening"}>
+                                    <a href={"http://localhost:3000/"} className={"nav-link active"}>
+                                        <FontAwesomeIcon icon={faMessage} className={"nav-icon"} />
+                                        <p>
+                                            Chat
+                                            <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
+                                        </p>
+                                    </a>
+                                    <ul className={"nav nav-treeview"}>
+                                        <li className={"nav-item"}>
+                                            <NavLink
+                                                to={'chat'}
+                                                className={"nav-link"}
+                                                end
+                                            >
+                                                <FontAwesomeIcon icon={faCircle} className={"nav-icon"} />
+                                                <p>
+                                                    Chat box
                                                 </p>
                                             </NavLink>
                                         </li>

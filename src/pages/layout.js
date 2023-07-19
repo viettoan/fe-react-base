@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createAuthUser, initNotifications, pushNotification} from "../features/auth/authSlice";
 import profileApis from "../api/baseAdmin/profile";
 import socket from "../plugins/socketio";
-import AdminCreateNewUser from "../components/_common/notifications/AdminCreateNewUser";
+import AdminCreateNewUser from "../components/_common/notifications/adminCreateNewUser";
 
 export default function Layout() {
     const auth = useSelector(state => state.auth);

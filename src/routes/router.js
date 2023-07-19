@@ -12,6 +12,7 @@ import ChangePassword from "../pages/auth/changePassword";
 import ProfileIndex from "../pages/profile";
 import Payment from "../pages/payments/payment";
 import PaymentSuccess from "../pages/payments/paymentSuccess";
+import Chat from "../pages/chat/chat";
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,15 @@ const router = createBrowserRouter([
                         element: <ProfileIndex />
                     }
                 ]
+            },
+            {
+                path: 'chat',
+                children: [
+                    {
+                        index: true,
+                        element: <Chat />,
+                    },
+                ],
             }
         ]
     },
