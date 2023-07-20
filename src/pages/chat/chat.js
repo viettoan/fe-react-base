@@ -1,5 +1,6 @@
 import SidebarLeft from "../../components/chat/sidebarLeft"
-
+import SidebarRight from "../../components/chat/sidebarRight";
+import Content from "../../components/chat/content";
 export default function Chat()
 {
     return (
@@ -9,11 +10,11 @@ export default function Chat()
                     <div className="col-3 p-0">
                         <SidebarLeft />
                     </div>
-                    <div className="col-6">
-                        content
+                    <div className="col-6 p-0">
+                        <Content />
                     </div>
-                    <div className="col-3">
-                        sidebar right
+                    <div className="col-3 p-0">
+                        <SidebarRight />
                     </div>
                 </div>
             </div>

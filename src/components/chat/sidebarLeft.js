@@ -16,9 +16,9 @@ export default function SidebarLeft()
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </span>
                         <input 
-                            type="text" 
-                            className="form-control" 
-                            placeholder="Tìm kiếm" 
+                            type="text"
+                            className="form-control"
+                            placeholder="Tìm kiếm"
                         />
                     </div>
                 </div>
