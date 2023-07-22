@@ -45,7 +45,7 @@ export const authSlice = createSlice({
             });
         },
         initNotifications: (state, action) => {
-            const notifications = action.payload;
+            const notifications = action.payload ?? [];
 
             return {
                 ...state,
