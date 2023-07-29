@@ -21,10 +21,8 @@ export const authSlice = createSlice({
             } catch (e) {
                 avatar = user.avatar;
             }
-
-            return Object.assign({}, state, {
-                user: {...user, avatarUrl: avatar},
-            });
+            user.avatarUrl = avatar;
+            state.user = user;
         },
         updateAuthUser: (state, action) => {
             const user = action.payload;
@@ -40,26 +38,14 @@ export const authSlice = createSlice({
                 avatar = user.avatar;
             }
 
-            return Object.assign({}, state, {
-                user: {...user, avatarUrl: avatar},
-            });
+            user.avatarUrl = avatar;
+            state.user = user;
         },
         initNotifications: (state, action) => {
-            const notifications = action.payload ?? [];
-
-            return {
-                ...state,
-                notifications
-            }
+            state.notifications = action.payload ?? [];
         },
         pushNotification: (state, action) => {
-            const notification = action.payload;
-            const notifications = [notification, ...state.notifications];
-
-            return {
-                ...state,
-                notifications
-            }
+            state.notifications.unshift(action.payload)
         }
     }
 });

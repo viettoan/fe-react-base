@@ -7,9 +7,7 @@ const navigationSlice = createSlice({
     },
     reducers: {
         collapseMainSidebar: (state, action) => {
-            return Object.assign({}, state, {
-                isCollapseMainSideBar: action.payload,
-            });
+            state.isCollapseMainSideBar = action.payload;
         }
     }
 })
