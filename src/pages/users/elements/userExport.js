@@ -9,7 +9,6 @@ function UserExport({data = {}})
     const handleExport = async () => {
         for (const field in data) {
             if (!data[field]) {
-                console.log(111222);
                 delete data[field];
             }
         }

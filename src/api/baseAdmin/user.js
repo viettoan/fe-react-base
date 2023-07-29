@@ -24,7 +24,9 @@ const userApis = {
     },
     store: (data) => {
         return baseAdminAxios.post(baseRoute, data,{
-            headers: getHeaderWithAuthorizationBearerToken()
+            headers: {
+                'Content-Type':'multipart/form-data'
+            }
         })
     },
     show: (userId) => {
