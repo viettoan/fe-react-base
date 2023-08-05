@@ -11,9 +11,10 @@ import {createAuthUser, initNotifications, pushNotification} from "../features/a
 import profileApis from "../api/baseAdmin/profile";
 import socket from "../plugins/socketio";
 import AdminCreateNewUser from "../components/_common/notifications/adminCreateNewUser";
+import {userSelector} from "../features/auth/authSelectors";
 
 export default function Layout() {
-    const auth = useSelector(state => state.auth);
+    const user = useSelector(userSelector);
     const dispatch = useDispatch();
     const [cookies, setCookie] = useCookies(['user_token']);
     let navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Layout() {
         if (!cookies.user_token) {
             navigate('/login');
         }
-        if (!auth.user) {
+        if (!user) {
             (
                 async () => {
                     const profileResponse = await profileApis.show();

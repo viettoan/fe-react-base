@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {useCookies} from "react-cookie";
 import {Link} from "react-router-dom";
 import moment from "moment";
+import {notificationsSelector} from "../../../features/auth/authSelectors";
+import {navigationSelector} from "../../../features/navigation/navigationSelectors";
 
 const Navigation = () => {
-    const navigation = useSelector(state => state.navigation);
-    const notifications = useSelector(state => state.auth.notifications)
+    const navigation = useSelector(navigationSelector);
+    const notifications = useSelector(notificationsSelector)
     const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const collapseSidebar = (e) => {

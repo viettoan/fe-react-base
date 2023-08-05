@@ -6,10 +6,11 @@ import {toast} from "react-toastify";
 import {useDispatch, useSelector} from "react-redux";
 import profileApis from "../../api/baseAdmin/profile";
 import { updateAuthUser } from "../../features/auth/authSlice";
+import {userSelector} from "../../features/auth/authSelectors";
 
 export default function ProfileIndex()
 {
-    const auth = useSelector(state => state.auth);
+    const user = useSelector(userSelector);
     const dispatch = useDispatch();
     const {
         register,
@@ -36,10 +37,10 @@ export default function ProfileIndex()
     const [title] = useState('Profile');
 
     useEffect(() => {
-        if (auth.user) {
-            setValue('name', auth.user?.name)
+        if (user) {
+            setValue('name', user?.name)
         }
-    }, [auth.user])
+    }, [user])
     const update = async (data) => {
         const formData = new FormData();
         formData.append('name', data.name);
@@ -81,7 +82,7 @@ export default function ProfileIndex()
                                 <form onSubmit={handleSubmit(update)}>
                                     <div className={'p-3 col-6'}>
                                         <div className="mb-3">
-                                            <img src={auth.user?.avatarUrl} className={"mb-2 avatar"} alt={"avatar user"}/>
+                                            <img src={user?.avatarUrl} className={"mb-2 avatar"} alt={"avatar user"}/>
                                             <input
                                                 type="file"
                                                 className="form-control"
@@ -116,7 +117,7 @@ export default function ProfileIndex()
                                                 disabled={true}
                                                 type="email"
                                                 className="form-control"
-                                                value={ auth.user?.email ?? '' }
+                                                value={ user?.email ?? '' }
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -125,7 +126,7 @@ export default function ProfileIndex()
                                                 disabled={true}
                                                 type="text"
                                                 className="form-control"
-                                                value={ auth.user?.phone ?? '' }
+                                                value={ user?.phone ?? '' }
                                             />
                                         </div>
                                         <div className={'mb-3'}>
@@ -137,7 +138,7 @@ export default function ProfileIndex()
                                                     className="form-check-input"
                                                     type="radio"
                                                     id="inputLevelAdmin"
-                                                    checked={ auth.user?.level === USER.levels.admin.value}
+                                                    checked={ user?.level === USER.levels.admin.value}
                                                     disabled={true}
                                                 />
                                                 <label className="form-check-label" htmlFor="inputLevelAdmin">
@@ -149,7 +150,7 @@ export default function ProfileIndex()
                                                     className="form-check-input"
                                                     type="radio"
                                                     id="inputLevelUser"
-                                                    checked={ auth.user?.level === USER.levels.user.value}
+                                                    checked={ user?.level === USER.levels.user.value}
                                                     disabled={true}
                                                 />
                                                 <label className="form-check-label" htmlFor="inputLevelUser">

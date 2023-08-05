@@ -4,9 +4,10 @@ import { faCircle, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {useSelector} from "react-redux";
+import {userSelector} from "../../../features/auth/authSelectors";
 
 export default function MainSidebar() {
-    const auth = useSelector(state => state.auth);
+    const user = useSelector(userSelector);
     useEffect(() => {
         document.querySelectorAll('.main-sidebar .nav-sidebar > .nav-item').forEach( (item) => {
             item.querySelector('.nav-link').addEventListener('click', function (e) {
@@ -34,7 +35,7 @@ export default function MainSidebar() {
                         {/* Sidebar User Panel */}
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                             <div className="image">
-                                <img src={auth.user?.avatarUrl} className="img-circle elevation-2" alt="User" />
+                                <img src={user?.avatarUrl} className="img-circle elevation-2" alt="User" />
                             </div>
                             <div className="info">
                                 <NavLink
@@ -42,7 +43,7 @@ export default function MainSidebar() {
                                     className={"nav-link"}
                                     end
                                 >
-                                    {auth.user?.name}
+                                    {user?.name}
                                 </NavLink>
                             </div>
                         </div>
