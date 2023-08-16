@@ -3,6 +3,7 @@
     margin-left: 250px;
     height: 57px;
   }
+
   .main-sidebar {
     bottom: 0;
     float: none;
@@ -10,9 +11,11 @@
     position: fixed;
     top: 0;
   }
+
   .wrapper .sidebar {
     height: calc(100vh - (3.5rem + 1px));
   }
+
   .content-wrapper {
     transition: margin-left .3s ease-in-out;
     margin-left: 250px;
@@ -20,6 +23,7 @@
     height: 100%;
     min-height: $heightContentWrapper;
   }
+
   .main-footer {
     transition: margin-left .3s ease-in-out;
     margin-left: 250px;
@@ -30,6 +34,7 @@
     height: 57px;
   }
 }
+
 .wrapper {
   position: relative;
 }
@@ -38,7 +43,7 @@
   padding: 15px 0.5rem;
   font-size: 1rem;
 
-  .breadcrumb{
+  .breadcrumb {
     background-color: transparent;
     line-height: 1.8rem;
     margin-bottom: 0;

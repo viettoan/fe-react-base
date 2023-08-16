@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
-export default function AdminCreateNewUser({ data }) {
+export default function AdminCreateNewUser({data}) {
   return (
     <>
       <p>{data.content}</p>

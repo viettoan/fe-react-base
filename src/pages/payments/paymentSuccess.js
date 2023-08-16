@@ -1,7 +1,7 @@
 export default function PaymentSuccess() {
-    return (
-        <>
-            Payment Success
-        </>
-    )
+  return (
+    <>
+      Payment Success
+    </>
+  )
 }
