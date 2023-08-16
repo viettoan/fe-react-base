@@ -15,79 +15,79 @@ import PaymentSuccess from "../pages/payments/paymentSuccess";
 import Chat from "../pages/chat/chat";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
-        errorElement: <ErrorPage />,
+  {
+    path: "/",
+    element: <Layout/>,
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        index: true,
+        element: <Index/>,
+      },
+      {
+        path: "users",
         children: [
-            {
-                index: true,
-                element: <Index />,
-            },
-            {
-                path: "users",
-                children: [
-                    {
-                        index: true,
-                        element: <UserIndex />,
-                    },
-                    {
-                        path: "create",
-                        element: <UserCreate />,
-                    },
-                    {
-                        path: ":userId/edit",
-                        element: <UserEdit />,
-                    },
-                ]
-            },
-            {
-                path: 'payments',
-                children: [
-                    {
-                        index: true,
-                        element: <Payment />,
-                    },
-                    {
-                        path: "success",
-                        element: <PaymentSuccess />,
-                    }
-                ],
-            },
-            {
-                path: "profile",
-                children: [
-                    {
-                        index: true,
-                        element: <ProfileIndex />
-                    }
-                ]
-            },
-            {
-                path: 'chat',
-                children: [
-                    {
-                        index: true,
-                        element: <Chat />,
-                    },
-                ],
-            }
+          {
+            index: true,
+            element: <UserIndex/>,
+          },
+          {
+            path: "create",
+            element: <UserCreate/>,
+          },
+          {
+            path: ":userId/edit",
+            element: <UserEdit/>,
+          },
         ]
-    },
-    {
-        path: "/",
-        element: <AuthLayout />,
-        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'payments',
         children: [
-            {
-                path: "/login",
-                element: <Login />,
-            },
-            {
-                path: "/confirm-account",
-                element: <ChangePassword />,
-            }
+          {
+            index: true,
+            element: <Payment/>,
+          },
+          {
+            path: "success",
+            element: <PaymentSuccess/>,
+          }
+        ],
+      },
+      {
+        path: "profile",
+        children: [
+          {
+            index: true,
+            element: <ProfileIndex/>
+          }
         ]
-    }
+      },
+      {
+        path: 'chat',
+        children: [
+          {
+            index: true,
+            element: <Chat/>,
+          },
+        ],
+      }
+    ]
+  },
+  {
+    path: "/",
+    element: <AuthLayout/>,
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        path: "/login",
+        element: <Login/>,
+      },
+      {
+        path: "/confirm-account",
+        element: <ChangePassword/>,
+      }
+    ]
+  }
 ]);
 export default router;

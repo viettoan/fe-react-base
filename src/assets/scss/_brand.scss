@@ -5,6 +5,7 @@
   padding: 0.8125rem 0.5rem;
   transition: width .3s ease-in-out;
   white-space: nowrap;
+
   .brand-image {
     float: left;
     line-height: .8;
@@ -15,8 +16,9 @@
     width: auto;
   }
 }
+
 .sidebar-dark {
   .brand-link {
-    color: rgba(255,255,255,.8);
+    color: rgba(255, 255, 255, .8);
   }
 }
