@@ -80,8 +80,8 @@ export default function SidebarLeft() {
         <div className="list-chat col-12 mt-2">
           {
             rooms.map(
-              room => (
-                <div className="list-chat-item d-flex row m-0 my-2 py-2">
+              (room, index) => (
+                <div className="list-chat-item d-flex row m-0 my-2 py-2" key={index}>
                   <div className="image col-3">
                     <img src={room.avatar} className="img-circle elevation-2" alt="User"/>
                   </div>
@@ -97,7 +97,6 @@ export default function SidebarLeft() {
           }
         </div>
       </div>
-
     </>
   )
 }
