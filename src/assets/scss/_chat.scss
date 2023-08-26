@@ -39,6 +39,10 @@
         }
       }
 
+      .list-chat-item.active {
+        background-color: $fdsBlue05;
+      }
+
       .list-chat-item:hover {
         background-color: #f1f1f1;
       }

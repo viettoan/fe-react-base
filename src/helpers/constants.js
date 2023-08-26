@@ -42,3 +42,16 @@ export const PAGINATION = {
   limit: 20,
   startPage: 1,
 }
+
+export const MESSAGES = {
+  type: {
+    text: 1,
+  }
+}
+
+export const USER_ROOMS = {
+  role: {
+    admin: 1,
+    member: 2
+  }
+}

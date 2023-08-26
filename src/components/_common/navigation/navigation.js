@@ -120,8 +120,8 @@ const Navigation = () => {
                       <h3 className="dropdown-item-title">
                         Brad Diesel
                         <span className="float-right text-sm text-danger">
-                                                        <FontAwesomeIcon icon={faStar}/>
-                                                    </span>
+                            <FontAwesomeIcon icon={faStar}/>
+                        </span>
                       </h3>
                       <p className="text-sm">Call me whenever you can...</p>
                       <p className="text-sm text-muted">

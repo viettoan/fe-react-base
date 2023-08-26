@@ -3,10 +3,18 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ListGroup from 'react-bootstrap/ListGroup';
 import {useEffect, useRef, useState} from "react";
 import userApis from "../../../api/baseAdmin/user";
-import {USER} from "../../../helpers/constants";
+import {USER, USER_ROOMS} from "../../../helpers/constants";
 import meChatRoomApis from "../../../api/baseAdmin/me/chat/room";
+import {useDispatch, useSelector} from "react-redux";
+import {updateActiveRoomId} from "../../../features/chatBox/chatBoxSlice";
+import {activeRoomIdSelector} from "../../../features/chatBox/chatBoxSelector";
+import {userSelector} from "../../../features/auth/authSelectors";
+import {toast} from "react-toastify";
 
 export default function SidebarLeft() {
+  const user = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const activeRoomId = useSelector(activeRoomIdSelector);
   const [searchAdminName, setSearchAdminName] = useState('');
   const [admins, setAdmins] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -37,6 +45,29 @@ export default function SidebarLeft() {
     }
   }
 
+  const handleActiveRoom = (roomId) => {
+    dispatch(updateActiveRoomId(roomId));
+  }
+
+  const addRoom = async (memberId) => {
+    const users = [
+      {
+        id: user._id,
+        role: USER_ROOMS.role.admin
+      },
+      {
+        id: memberId,
+        role: USER_ROOMS.role.member
+      }
+    ];
+    const addRoomResponse = await meChatRoomApis.store({users});
+
+    if (!addRoomResponse.success) {
+      toast.error(() => <p>Không thể gửi tin nhắn! Vui lòng thử lại</p>);
+    }
+    setSearchAdminName('');
+    searchBoxListUser.current.classList.add('d-none');
+  }
   return (
     <>
       <div className="chat-sidebar-left p-1">
@@ -47,9 +78,9 @@ export default function SidebarLeft() {
         </div>
         <div className="search-box">
           <div className="input-group flex-nowrap">
-                        <span className="input-group-text">
-                            <FontAwesomeIcon icon={faMagnifyingGlass}/>
-                        </span>
+            <span className="input-group-text">
+                <FontAwesomeIcon icon={faMagnifyingGlass}/>
+            </span>
             <input
               type="text"
               className="form-control"
@@ -62,7 +93,11 @@ export default function SidebarLeft() {
             {
               admins.map(
                 (admin, index) => (
-                  <ListGroup.Item key={index} className={"d-flex row m-0"}>
+                  <ListGroup.Item
+                    key={index}
+                    className={"d-flex row m-0"}
+                    onClick={() => addRoom(admin._id)}
+                  >
                     <div className="image col-2">
                       <img src={admin.avatar} className="img-circle elevation-2" alt="User"/>
                     </div>
@@ -81,7 +116,11 @@ export default function SidebarLeft() {
           {
             rooms.map(
               (room, index) => (
-                <div className="list-chat-item d-flex row m-0 my-2 py-2" key={index}>
+                <div
+                  className={`list-chat-item d-flex row m-0 my-2 py-2 ${activeRoomId === room._id ? 'active' : ''}`}
+                  key={index}
+                  onClick={() => handleActiveRoom(room._id)}
+                >
                   <div className="image col-3">
                     <img src={room.avatar} className="img-circle elevation-2" alt="User"/>
                   </div>
