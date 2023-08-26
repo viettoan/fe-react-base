@@ -9,7 +9,7 @@ import {useCookies} from "react-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {createAuthUser, initNotifications, pushNotification} from "../features/auth/authSlice";
 import profileApis from "../api/baseAdmin/me/profile";
-import socket from "../plugins/socketio";
+import socket from "../plugins/socketIo";
 import AdminCreateNewUser from "../components/_common/notifications/adminCreateNewUser";
 import {userSelector} from "../features/auth/authSelectors";
 
@@ -25,6 +25,9 @@ export default function Layout() {
       toast.info(() => <AdminCreateNewUser data={data}/>);
       dispatch(pushNotification(data));
     })
+    mainSocket.on("connect_error", (err) => {
+      console.log('socket not connected', err.message);
+    });
 
     if (!cookies.user_token) {
       navigate('/login');
