@@ -10,10 +10,8 @@ const userApis = {
     return baseAdminAxios.get(baseRoute, {
       params: {
         ...params,
-        pagination: {
-          page,
-          limit
-        }
+        page,
+        limit
       },
       headers: getHeaderWithAuthorizationBearerToken()
     });

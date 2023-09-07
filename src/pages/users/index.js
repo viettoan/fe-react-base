@@ -194,7 +194,7 @@ export default function UserIndex() {
                     </thead>
                     <tbody>
                     {
-                      users.docs && users.docs.map((user, index) => {
+                      users.data && users.data.map((user, index) => {
                         return (
                           <tr key={index}>
                             <td>
