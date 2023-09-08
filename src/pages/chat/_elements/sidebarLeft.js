@@ -1,5 +1,3 @@
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ListGroup from 'react-bootstrap/ListGroup';
 import {useEffect, useRef, useState} from "react";
 import userApis from "../../../api/baseAdmin/user";
@@ -10,6 +8,7 @@ import {updateActiveRoomId} from "../../../features/chatBox/chatBoxSlice";
 import {activeRoomIdSelector} from "../../../features/chatBox/chatBoxSelector";
 import {userSelector} from "../../../features/auth/authSelectors";
 import {toast} from "react-toastify";
+import {FaMagnifyingGlass} from "react-icons/fa6"
 
 export default function SidebarLeft() {
   const user = useSelector(userSelector);
@@ -79,7 +78,7 @@ export default function SidebarLeft() {
         <div className="search-box">
           <div className="input-group flex-nowrap">
             <span className="input-group-text">
-                <FontAwesomeIcon icon={faMagnifyingGlass}/>
+              <FaMagnifyingGlass />
             </span>
             <input
               type="text"

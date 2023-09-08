@@ -1,16 +1,14 @@
-import {faFile} from "@fortawesome/free-regular-svg-icons";
-import {faVideo, faPhone} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {memo, useEffect, useRef, useState} from "react";
+import {memo, useEffect, useRef} from "react";
 import {userSelector} from "../../../features/auth/authSelectors";
 import {useDispatch, useSelector} from "react-redux";
 import {IoIosSend} from "react-icons/io";
-import meChatMessageApis from "../../../api/baseAdmin/me/chat/message";
 import {MESSAGES} from "../../../helpers/constants";
 import {toast} from "react-toastify";
 import socket from "../../../plugins/socketIo";
 import {activeRoomIdSelector, messagesSelector} from "../../../features/chatBox/chatBoxSelector";
 import {addNewMessage} from "../../../features/chatBox/chatBoxSlice";
+import {FaFile, FaVideo, FaPhone} from "react-icons/fa6"
+
 const mainSocket = socket('admin');
 
 function Content() {
@@ -80,9 +78,9 @@ function Content() {
           </div>
           <div className={'col-2 d-flex align-items-center justify-content-around form-action px-2'}>
             <IoIosSend className={'fa-2xl'} onClick={sendMessage}/>
-            <FontAwesomeIcon icon={faFile} className={'fa-xl'}/>
-            <FontAwesomeIcon icon={faVideo} className={'fa-xl'}/>
-            <FontAwesomeIcon icon={faPhone} className={'fa-xl'}/>
+            <FaFile className={'fa-xl'}/>
+            <FaVideo className={'fa-xl'}/>
+            <FaPhone className={'fa-xl'}/>
           </div>
         </form>
       </div>

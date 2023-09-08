@@ -1,13 +1,11 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faAngleLeft, faUsers, faCreditCard} from "@fortawesome/free-solid-svg-icons";
-import {faCircle, faMessage} from "@fortawesome/free-regular-svg-icons";
 import {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {userSelector} from "../../../features/auth/authSelectors";
+import {FaAngleLeft, FaUsers, FaCreditCard, FaCircle, FaMessage} from "react-icons/fa6";
 
 export default function MainSidebar() {
-  const auth = useSelector(state => state.auth);
+  const user = useSelector(userSelector);
   useEffect(() => {
     document.querySelectorAll('.main-sidebar .nav-sidebar > .nav-item').forEach((item) => {
       item.querySelector('.nav-link').addEventListener('click', function (e) {
@@ -35,7 +33,7 @@ export default function MainSidebar() {
             {/* Sidebar User Panel */}
             <div className="user-panel mt-3 pb-3 mb-3 d-flex">
               <div className="image">
-                <img src={auth.user?.avatar} className="img-circle elevation-2" alt="User"/>
+                <img src={user?.avatar} className="img-circle elevation-2" alt="User"/>
               </div>
               <div className="info">
                 <NavLink
@@ -43,7 +41,7 @@ export default function MainSidebar() {
                   className={"nav-link"}
                   end
                 >
-                  {auth.user?.name}
+                  {user?.name}
                 </NavLink>
               </div>
             </div>
@@ -53,10 +51,10 @@ export default function MainSidebar() {
                   data-accordion="false">
                 <li className={"nav-item menu-open menu-is-opening"}>
                   <a href={"http://localhost:3000/"} className={"nav-link active"}>
-                    <FontAwesomeIcon icon={faUsers} className={"nav-icon"}/>
+                    <FaUsers className={"nav-icon"}/>
                     <p>
                       Quản lý Users
-                      <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
+                      <FaAngleLeft className={"right"}/>
                     </p>
                   </a>
                   <ul className={"nav nav-treeview"}>
@@ -66,7 +64,7 @@ export default function MainSidebar() {
                         className={"nav-link"}
                         end
                       >
-                        <FontAwesomeIcon icon={faCircle} className={"nav-icon"}/>
+                        <FaCircle className={"nav-icon"}/>
                         <p>
                           Danh sách Users
                         </p>
@@ -78,7 +76,7 @@ export default function MainSidebar() {
                         className={"nav-link"}
                         end
                       >
-                        <FontAwesomeIcon icon={faCircle} className={"nav-icon"}/>
+                        <FaCircle className={"nav-icon"}/>
                         <p>
                           Thêm mới User
                         </p>
@@ -88,10 +86,10 @@ export default function MainSidebar() {
                 </li>
                 <li className={"nav-item menu-open menu-is-opening"}>
                   <a href={"http://localhost:3000/"} className={"nav-link active"}>
-                    <FontAwesomeIcon icon={faCreditCard} className={"nav-icon"}/>
+                    <FaCreditCard className={"nav-icon"} />
                     <p>
                       Payments
-                      <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
+                      <FaAngleLeft className={"right"}/>
                     </p>
                   </a>
                   <ul className={"nav nav-treeview"}>
@@ -101,7 +99,7 @@ export default function MainSidebar() {
                         className={"nav-link"}
                         end
                       >
-                        <FontAwesomeIcon icon={faCircle} className={"nav-icon"}/>
+                        <FaCircle className={"nav-icon"}/>
                         <p>
                           Tạo payment
                         </p>
@@ -111,10 +109,10 @@ export default function MainSidebar() {
                 </li>
                 <li className={"nav-item menu-open menu-is-opening"}>
                   <a href={"http://localhost:3000/"} className={"nav-link active"}>
-                    <FontAwesomeIcon icon={faMessage} className={"nav-icon"}/>
+                    <FaMessage className={"nav-icon"} />
                     <p>
                       Chat
-                      <FontAwesomeIcon icon={faAngleLeft} className={"right"}/>
+                      <FaAngleLeft className={"right"}/>
                     </p>
                   </a>
                   <ul className={"nav nav-treeview"}>
@@ -124,7 +122,7 @@ export default function MainSidebar() {
                         className={"nav-link"}
                         end
                       >
-                        <FontAwesomeIcon icon={faCircle} className={"nav-icon"}/>
+                        <FaCircle className={"nav-icon"}/>
                         <p>
                           Chat box
                         </p>

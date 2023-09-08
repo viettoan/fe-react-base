@@ -1,6 +1,4 @@
-import {faUser} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
+import {FaUser} from "react-icons/fa6"
 export default function SidebarRight() {
   return (
     <>
@@ -15,7 +13,7 @@ export default function SidebarRight() {
           <div>
             <div className={'d-flex justify-content-center'}>
               <a className={'btn-circle d-flex justify-content-center align-items-center'}>
-                <FontAwesomeIcon icon={faUser}/>
+                <FaUser/>
               </a>
             </div>
 

@@ -1,12 +1,11 @@
 import ContentHeader from "../components/_common/content/contentHeader";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import {faArrowAltCircleRight, faUsers, faNewspaper} from "@fortawesome/free-solid-svg-icons";
-import {faComments, faThumbsUp} from "@fortawesome/free-regular-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Chart from "chart.js/auto";
 import {CategoryScale} from "chart.js";
 import {Line} from "react-chartjs-2";
+import {FaArrowAltCircleRight} from "react-icons/fa";
+import {FaUsers, FaNewspaper, FaComments, FaThumbsUp} from "react-icons/fa6";
 
 Chart.register(CategoryScale)
 const data = [
@@ -128,11 +127,11 @@ export default function Index() {
                   <p>Users</p>
                 </div>
                 <div className="icon">
-                  <FontAwesomeIcon icon={faUsers}/>
+                  <FaUsers/>
                 </div>
                 <Link to={"/"} className={'small-box-footer'}>
                   More info
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} className={"ms-1"}/>
+                  <FaArrowAltCircleRight className={"ms-1"}/>
                 </Link>
               </div>
             </div>
@@ -143,11 +142,11 @@ export default function Index() {
                   <p>Bài viết</p>
                 </div>
                 <div className="icon">
-                  <FontAwesomeIcon icon={faNewspaper}/>
+                  <FaNewspaper/>
                 </div>
                 <Link to={"/"} className={'small-box-footer'}>
                   More info
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} className={"ms-1"}/>
+                  <FaArrowAltCircleRight className={"ms-1"}/>
                 </Link>
               </div>
             </div>
@@ -158,11 +157,11 @@ export default function Index() {
                   <p>Bình luận</p>
                 </div>
                 <div className="icon">
-                  <FontAwesomeIcon icon={faComments}/>
+                  <FaComments/>
                 </div>
                 <Link to={"/"} className={'small-box-footer'}>
                   More info
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} className={"ms-1"}/>
+                  <FaArrowAltCircleRight className={"ms-1"}/>
                 </Link>
               </div>
             </div>
@@ -173,11 +172,11 @@ export default function Index() {
                   <p>Tương tác</p>
                 </div>
                 <div className="icon">
-                  <FontAwesomeIcon icon={faThumbsUp}/>
+                  <FaThumbsUp/>
                 </div>
                 <Link to={"/"} className={'small-box-footer'}>
                   More info
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} className={"ms-1"}/>
+                  <FaArrowAltCircleRight className={"ms-1"}/>
                 </Link>
               </div>
             </div>

@@ -1,7 +1,4 @@
 import React from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBars, faExpandArrowsAlt} from "@fortawesome/free-solid-svg-icons";
-import {faComments, faBell, faStar} from "@fortawesome/free-regular-svg-icons";
 import {collapseMainSidebar} from "../../../features/navigation/navigationSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
@@ -9,10 +6,12 @@ import {Link} from "react-router-dom";
 import moment from "moment";
 import {notificationsSelector} from "../../../features/auth/authSelectors";
 import {navigationSelector} from "../../../features/navigation/navigationSelectors";
+import {FaBars, FaComments, FaBell, FaStar} from "react-icons/fa6"
+import {FaExpandArrowsAlt} from "react-icons/fa"
 
 const Navigation = () => {
-  const navigation = useSelector(state => state.navigation);
-  const notifications = useSelector(state => state.auth.notifications)
+  const navigation = useSelector(navigationSelector);
+  const notifications = useSelector(notificationsSelector)
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies([]);
   const collapseSidebar = (e) => {
@@ -74,8 +73,9 @@ const Navigation = () => {
         <div className="container-fluid p-0">
           <ul className="navbar-nav mb-2 mb-lg-0 mx-3">
             <li className="nav-item">
-              <a href="http://localhost:3000/" className="nav-link" onClick={collapseSidebar}><FontAwesomeIcon
-                icon={faBars}/></a>
+              <a href="http://localhost:3000/" className="nav-link" onClick={collapseSidebar}>
+                <FaBars/>
+              </a>
             </li>
           </ul>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -97,7 +97,7 @@ const Navigation = () => {
                 aria-expanded={"false"}
                 onClick={(e) => mainHeaderDropdown(e)}
               >
-                <FontAwesomeIcon icon={faComments}/>
+                <FaComments/>
                 <span className="badge bg-danger navbar-badge">3</span>
               </a>
               <div
@@ -120,7 +120,7 @@ const Navigation = () => {
                       <h3 className="dropdown-item-title">
                         Brad Diesel
                         <span className="float-right text-sm text-danger">
-                            <FontAwesomeIcon icon={faStar}/>
+                          <FaStar/>
                         </span>
                       </h3>
                       <p className="text-sm">Call me whenever you can...</p>
@@ -142,7 +142,7 @@ const Navigation = () => {
                 aria-expanded={"false"}
                 onClick={(e) => mainHeaderDropdown(e)}
               >
-                <FontAwesomeIcon icon={faBell}/>
+                <FaBell/>
                 <span className="badge bg-warning navbar-badge">{notifications.length ?? 0}</span>
               </a>
               <div
@@ -180,7 +180,7 @@ const Navigation = () => {
             </li>
             <li className="nav-item mx-3">
               <a className="nav-link" href="#" onClick={(e) => handleFullScreen(e)}>
-                <FontAwesomeIcon icon={faExpandArrowsAlt}/>
+                <FaExpandArrowsAlt />
               </a>
             </li>
             <li className={"nav-item max-3"}>
