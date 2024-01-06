@@ -1,5 +1,5 @@
-import baseAdminAxios from "../../../../plugins/axios";
-import {getHeaderWithAuthorizationBearerToken} from "../../../../helpers/common";
+import baseAdminAxios from "../../../../utils/axios";
+import {getHeaderWithAuthorizationBearerToken} from "../../../../utils/helper";
 const baseRoute = 'me/chat/rooms';
 const meChatRoomApis = {
   index: () => {

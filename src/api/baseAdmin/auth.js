@@ -1,4 +1,4 @@
-import baseAdminAxios from "../../plugins/axios";
+import baseAdminAxios from "../../utils/axios";
 
 const baseRoute = 'auth/'
 const authApis = {

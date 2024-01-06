@@ -1,6 +1,6 @@
-import baseAdminAxios from "../../plugins/axios";
-import {getHeaderWithAuthorizationBearerToken} from "../../helpers/common";
-import {PAGINATION} from "../../helpers/constants";
+import baseAdminAxios from "../../utils/axios";
+import {getHeaderWithAuthorizationBearerToken} from "../../utils/helper";
+import {PAGINATION} from "../../constants/app";
 
 const baseRoute = 'users/'
 
