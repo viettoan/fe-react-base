@@ -1,5 +1,4 @@
 import {createBrowserRouter} from "react-router-dom";
-import ErrorPage from "../layouts/error-page";
 import React from "react";
 import MainLayout from "../layouts/main";
 import {chatRoutes} from "../modules/chat/routes";
@@ -8,12 +7,15 @@ import {paymentRoutes} from "../modules/payments/routes";
 import {userRoutes} from "../modules/users/routes";
 import {authRoutes} from "../modules/auth/routes";
 import {dashboardRoutes} from "../modules/dashboard/routes";
+import AppError from "../components/errors/app-error";
+import { changePasswordRoutes } from "../modules/changePassword/routes";
+import AuthLayout from "../layouts/auth";
 
 export default createBrowserRouter([
   {
     path: "/",
     element: <MainLayout/>,
-    errorElement: <ErrorPage/>,
+    errorElement: <AppError/>,
     children: [
       dashboardRoutes,
       userRoutes,
@@ -22,5 +24,13 @@ export default createBrowserRouter([
       chatRoutes
     ]
   },
-  authRoutes
+  {
+    path: "/",
+    element: <AuthLayout/>,
+    errorElement: <AppError/>,
+    children: [
+        authRoutes,
+        changePasswordRoutes,
+    ]
+  }
 ]);

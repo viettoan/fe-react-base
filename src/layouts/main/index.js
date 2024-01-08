@@ -1,6 +1,6 @@
-import Navigation from "../../components/navigation";
-import MainSidebar from "../../components/mainSidebar";
-import MainFooter from "../../components/footer";
+import Navigation from "./components/navigation";
+import MainSidebar from "./components/mainSidebar";
+import MainFooter from "./components/footer";
 import {Outlet, useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

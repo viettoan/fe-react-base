@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {userSelector} from "../../redux/features/auth/authSelectors";
+import {userSelector} from "../../../../redux/features/auth/authSelectors";
 import {FaAngleLeft, FaUsers, FaCreditCard, FaCircle, FaMessage} from "react-icons/fa6";
 
 export default function MainSidebar() {

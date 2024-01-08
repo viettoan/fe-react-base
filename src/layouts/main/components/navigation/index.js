@@ -1,11 +1,11 @@
 import React from "react";
-import {collapseMainSidebar} from "../../redux/features/navigation/navigationSlice";
+import {collapseMainSidebar} from "../../../../redux/features/navigation/navigationSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
 import {Link} from "react-router-dom";
 import moment from "moment";
-import {notificationsSelector} from "../../redux/features/auth/authSelectors";
-import {navigationSelector} from "../../redux/features/navigation/navigationSelectors";
+import {notificationsSelector} from "../../../../redux/features/auth/authSelectors";
+import {navigationSelector} from "../../../../redux/features/navigation/navigationSelectors";
 import {FaBars, FaComments, FaBell, FaStar} from "react-icons/fa6"
 import {FaExpandArrowsAlt} from "react-icons/fa"
 
@@ -13,7 +13,7 @@ const Navigation = () => {
   const navigation = useSelector(navigationSelector);
   const notifications = useSelector(notificationsSelector)
   const dispatch = useDispatch();
-  const [removeCookie] = useCookies([]);
+  const [cookie, setCoookie, removeCookie] = useCookies([]);
   const collapseSidebar = (e) => {
     e.preventDefault();
     const isCollapse = navigation.isCollapseMainSideBar;

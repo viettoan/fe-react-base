@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import UserImport from "../_elements/userImport";
 import UserExport from "../_elements/userExport";
-import CustomPagination from "../../../components/customPagination";
+import Pagination from "../../../components/pagination";
 
 const userIndexSwal = withReactContent(Swal);
 export default function UserIndex() {
@@ -226,7 +226,7 @@ export default function UserIndex() {
                     }
                     </tbody>
                   </table>
-                  <CustomPagination
+                  <Pagination
                     page={users.page}
                     pages={users.pages}
                     onPageChange={handlePageChange}
